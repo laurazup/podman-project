@@ -6,7 +6,7 @@ Este projeto demonstra como configurar um servidor web simples usando Nginx e um
 ```
 .
 ├── podman-compose.yaml
-├── Dockerfile
+├── Podfile
 ├── html
 │ └── index.html
 └── data
@@ -14,7 +14,7 @@ Este projeto demonstra como configurar um servidor web simples usando Nginx e um
 
 ### Descrição dos Arquivos 
 1. **podman-compose.yaml**: Define os serviços do projeto (servidor web e banco de dados). 
-2. **Dockerfile**: Especifica a configuração para o container Nginx. 
+2. **Podfile**: Especifica a configuração para o container Nginx. 
 3. **html/index.html**: Um arquivo HTML simples que será servido pelo servidor Nginx. 
 4. **data/**: Diretório para persistir os dados do banco de dados PostgreSQL. 
 
@@ -24,56 +24,7 @@ Este projeto demonstra como configurar um servidor web simples usando Nginx e um
 1. **Podman** e **Podman Compose** instalados no sistema. 
 2. Conhecimento básico sobre aplicações containerizadas. 
 
---- 
-
-## Guia Passo a Passo 
-
-### 1. Criar os Arquivos Necessários 
-
-#### `podman-compose.yaml` 
-```yaml 
-version: "3"
-services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    volumes:
-      - ./html:/usr/share/nginx/html
-  db:
-    image: docker.io/library/postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mydb
-    volumes:
-      - ./data:/var/lib/postgresql/data
-```
-
-#### Dockerfile
-```
-FROM docker.io/library/busybox
-COPY ./html /usr/share/nginx/html
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-#### html/index.html
-```
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo</title>
-</head>
-<body>
-    <h1>Olá, Mundo!</h1>
-</body>
-</html>
-```
+---
 
 ## Executando a Aplicação
 
